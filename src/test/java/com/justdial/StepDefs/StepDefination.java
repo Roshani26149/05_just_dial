@@ -45,8 +45,8 @@ public class StepDefination {
 		//Initialize Page Object Model
 		loginpage=new _01_LoginPage(driver);
 		SearchFunctionality =new _02_SearchFunctionality(driver);
-		MinuFunctionality =new _03_MinuFunctionality();
-		CustomerCarePage =new _04_CustomerCarePage();
+		MinuFunctionality =new _03_MinuFunctionality(driver);
+		CustomerCarePage =new _04_CustomerCarePage(driver);
 	}
 	
 	 @After(order=1)
@@ -138,9 +138,41 @@ public class StepDefination {
 
 	 @Then("User is able to see the drop down under search text box with all the items with text {string}")
 	 public void user_is_able_to_see_the_drop_down_under_search_text_box_with_all_the_items_with_text(String string) {
-	     
+		 SearchFunctionality.Select_All_link();
+	 }
+   
+	 //*******************Menu Related steps**********************************************************
+	 
+	 @When("User clicks on {string}")
+	 public void user_clicks_on(String product) {
+		 MinuFunctionality.Select_minu_List(product);
 	 }
 
+	 @Then("User is navigates to the corresponding link realted to {string}")
+	 public void user_is_navigates_to_the_corresponding_link_realted_to(String string) {
+	     
+	 }
+	 
+	 //*************************Customer Care Steps*************************************************
+
+	 @Given("User navigates to Customer care page by clicking on Customer Care tab at the right-mid of the page")
+	 public void user_navigates_to_customer_care_page_by_clicking_on_customer_care_tab_at_the_right_mid_of_the_page() {
+	    
+	 }
+
+	 @When("User enter {string} in the Text box")
+	 public void user_enter_in_the_text_box(String test) throws Exception {
+		 CustomerCarePage.click_on_customer_link();
+		 CustomerCarePage.input_field(test);
+		 Thread.sleep(2000);
+		 
+	 }
+
+	 @Then("User is able to see the drop down and all the items in the list must have text as {string}")
+	 public void user_is_able_to_see_the_drop_down_and_all_the_items_in_the_list_must_have_text_as(String string) {
+		 CustomerCarePage.Select_All_link();
+	 }
+	 
 
 	
 }

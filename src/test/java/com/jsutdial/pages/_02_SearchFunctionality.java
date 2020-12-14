@@ -1,7 +1,10 @@
 package com.jsutdial.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import com.justdial.core.WebDriverFactory;
@@ -36,8 +39,13 @@ public class _02_SearchFunctionality {
 		driver.findElement(Search_text).sendKeys(resta);
 	}
 	public void Select_All_link() {
-		Select select =new Select(driver.findElement(Search_text));
-		
+		//Select select =new Select(driver.findElement(By.xpath("//ul[@id='auto']")));
+		WebElement mySelectElement = driver.findElement(By.name("//a[contains(@id,'-')]"));
+		Select dropdown= new Select(mySelectElement);
+		List<WebElement> options = dropdown.getOptions();
+		for (WebElement option : options) {
+		System.out.println(option.getText()); 		
+		}
 	}
 	
 	
