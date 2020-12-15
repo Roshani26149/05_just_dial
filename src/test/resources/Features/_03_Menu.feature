@@ -6,10 +6,10 @@ Feature: Minu functionality
     Then User is navigates to the corresponding link realted to "<SIDE_MENU_LINK_NAME>"
 
     Examples: 
-      | SIDE_MENU_LINK_NAME |
-      | Baby Care           |
-      | Bus                 |
-      | Medical             |
-      | Real Estate         |
-      | Travel              |
-      | Wedding             |
+     | SIDE_MENU_LINK_NAME |
+     | Baby Care           |
+     | Books               |
+     | Medical             |
+     | Real Estate         |
+     | Travel              |
+     | Wedding             |

@@ -9,14 +9,16 @@ import org.openqa.selenium.WebDriver;
 
 import com.jsutdial.pages._01_LoginPage;
 import com.jsutdial.pages._02_SearchFunctionality;
-import com.jsutdial.pages._03_MinuFunctionality;
+import com.jsutdial.pages._03_MenuFunctionality;
 import com.jsutdial.pages._04_CustomerCarePage;
 import com.justdial.core.WebDriverFactory;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class StepDefination {
 
@@ -24,14 +26,14 @@ public class StepDefination {
 
 
 	WebDriver driver;
-	String base_url = "http://justdial.com/";
+	String base_url = "https://www.justdial.com/";
 	int implicit_wait_timeout_in_sec = 20;
 	Scenario scn;
 
 	//declare pages
 	_01_LoginPage loginpage;
 	_02_SearchFunctionality SearchFunctionality;
-	_03_MinuFunctionality MinuFunctionality;
+	_03_MenuFunctionality MenuFunctionality;
 	_04_CustomerCarePage CustomerCarePage;
 
 	@Before
@@ -45,7 +47,7 @@ public class StepDefination {
 		//Initialize Page Object Model
 		loginpage=new _01_LoginPage(driver);
 		SearchFunctionality =new _02_SearchFunctionality(driver);
-		MinuFunctionality =new _03_MinuFunctionality(driver);
+		MenuFunctionality =new _03_MenuFunctionality(driver);
 		CustomerCarePage =new _04_CustomerCarePage(driver);
 	}
 	
@@ -79,7 +81,7 @@ public class StepDefination {
 	 @When("User clicks on Sign up link at the top right corner of the application")
 	 public void user_clicks_on_sign_up_link_at_the_top_right_corner_of_the_application() throws Exception {
 		 loginpage.Click_On_Sign_in();
-	    
+		 
 	 }
 
 	 @When("User enters name as {string} and Phone number as {string} and clicks on Submit Button")
@@ -90,6 +92,7 @@ public class StepDefination {
 	 @Then("User is displayed with the message as {string}")
 	 public void user_is_displayed_with_the_message_as(String msg) {
 		 loginpage.msg_display(msg);
+		 logger.info("The Massage displayed - "+msg);
 	 }
 
 	 @When("User clicks on Login-in link at the top right corner of the application")
@@ -105,8 +108,7 @@ public class StepDefination {
      @Then("User gets error message")
 	 public void user_gets_error_message() {
     	 loginpage.Error_msg();
-	    
-	 }
+     }
 	 @Then("User is able to enter only {string} digits in the Mobile text field")
 	 public void user_is_able_to_enter_only_digits_in_the_mobile_text_field(String num) {
 		 loginpage.cheke_mob_field(num);
@@ -144,8 +146,8 @@ public class StepDefination {
 	 //*******************Menu Related steps**********************************************************
 	 
 	 @When("User clicks on {string}")
-	 public void user_clicks_on(String product) {
-		 MinuFunctionality.Select_minu_List(product);
+	 public void user_clicks_on(String product) throws Exception {
+		 MenuFunctionality.Select_minu_List(product);
 	 }
 
 	 @Then("User is navigates to the corresponding link realted to {string}")
@@ -172,7 +174,5 @@ public class StepDefination {
 	 public void user_is_able_to_see_the_drop_down_and_all_the_items_in_the_list_must_have_text_as(String string) {
 		 CustomerCarePage.Select_All_link();
 	 }
-	 
-
 	
 }

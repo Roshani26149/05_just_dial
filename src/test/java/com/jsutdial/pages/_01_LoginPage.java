@@ -2,8 +2,12 @@ package com.jsutdial.pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 
@@ -36,8 +40,12 @@ public class _01_LoginPage {
 
 	public void login_pop_up(String namefield,String mobfield) throws Exception {
 		driver.findElement(login_name).sendKeys(namefield);
-		Thread.sleep(2000);
-		driver.findElement(login_mob).sendKeys(mobfield);
+		logger.info("Value enter in namefield is "+namefield);
+		WebDriverWait webdriverwait = new WebDriverWait(driver,20);
+		WebElement elementSearchBox = webdriverwait.until(ExpectedConditions.elementToBeClickable(login_mob));
+		elementSearchBox.clear();
+		elementSearchBox.sendKeys(mobfield);
+		logger.info("Value enter in mobilefield is "+mobfield);
 		Thread.sleep(2000);
 		driver.findElement(login_submit).click();
 		Thread.sleep(2000);
@@ -46,7 +54,10 @@ public class _01_LoginPage {
 	}
 	public void msg_display(String msg) {
 		String text =driver.findElement(OTP_is_sent_on_number).getText();
-		System.out.println("The Messgae dispayed is " +text);
+		String expected ="OTP is sent on number";
+		Assert.assertEquals("massage matched", expected, text);
+		logger.info("The Messgae dispayed is "+text);
+		
 	}
 
 	public void Click_On_Login() throws Exception {
@@ -65,15 +76,21 @@ public class _01_LoginPage {
 	public void Error_msg() {
 		String error_msg=driver.findElement(Error_msg).getText();
 		System.out.println("The message is displayed i.e. - "+error_msg);
+		logger.info("The massage After sending invalid information is- "+error_msg);
 	}
 	
 
 	public void cheke_mob_field(String num) {
-		String attribute =driver.findElement(login_mob).getAttribute("9511824982");
-		System.out.println("the value of mob field is "+attribute);
-		
-		
+		String attribute =driver.findElement(login_mob).getAttribute("maxlength");
+		if(attribute.equals(num)) {
+			Assert.assertTrue(true);
+			logger.info("Maximum lenght of mobile number is 10");
+		}
+		else {
+			logger.fatal("max lenght of mobile number is not set to 10");
+			Assert.fail("Maximum lenght of mobile number is not set to 10");
+		}
+	
 	}
 
-	
 }
